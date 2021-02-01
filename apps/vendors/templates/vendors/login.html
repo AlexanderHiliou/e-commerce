@@ -1,9 +1,9 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Become a vendor{% endblock %}
+{% block title %}Log in{% endblock %}
 
 {% block content %}
-    <h1 class='title'>Become a vendor</h1>
+    <h1 class='title'>Log in</h1>
 
     <form method="POST" action=".">
         {% csrf_token %}
@@ -16,7 +16,4 @@
             </div>
         </div>
     </form>
-    <hr>
-    <h2 class="subtitle">Already have an account?</h2>
-    <a href="{% url 'login' %}">Log in</a>
 {% endblock %}

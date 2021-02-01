@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Vendor admin{% endblock %}
+
+{% block content %}
+    <div class="box">
+        <h3>Hello, {{ vendor.name }}</h3>
+        <br>
+        <a href="{% url 'logout' %}" class="button is-danger">Logout</a>
+    </div>
+
+{% endblock %}

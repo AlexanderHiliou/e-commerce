@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm 
 from django.shortcuts import render, redirect
 from .models import Vendor
@@ -19,3 +20,9 @@ def become_vendor(request):
     else:
         form = UserCreationForm()
     return render(request, 'vendors/become_vendor.html', {'form': form})
+
+
+@login_required
+def vendor_admin(request):
+    vendor = request.user.vendor
+    return render(request, 'vendors/vendor_admin.html', {'vendor': vendor})
