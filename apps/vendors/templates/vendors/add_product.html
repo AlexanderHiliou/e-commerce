@@ -1,0 +1,63 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Add product{% endblock %}
+
+{% block content %}
+<div class="conteiner">
+    <div class="columns">
+        <div class="column is-6 is-offset-3">
+            <h1 class='title'>Add product</h1>
+
+            <form method="POST" action="." enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="field">
+                    <div class="control">
+                        <div class="select is-danger">
+                            <select name="category" id="id_category" required="">
+                                <option value="" disabled selected hidden>Choose a category</option>
+                                <option value="2">Bed</option>
+                                <option value="1">Sofa</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <div class="file is-black">
+                            <label class="file-label">
+                              <input class="file-input" type="file" name="image" accept="image/*" id="id_image">
+                              <span class="file-cta">
+                                <span class="file-label">
+                                  Choose photo…
+                                </span>
+                              </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-danger" type="text" name="title" maxlength="255" id="id_title" placeholder="Title" required="">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <textarea class="textarea is-danger" name="description" rows="10" id="id_description" placeholder="Description"></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-danger" type="number" name="price" step="0.01" id="id_price" placeholder="Price" required="">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-black">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
