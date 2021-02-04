@@ -11,3 +11,8 @@ def product(request, category_slug, product_slug):
         similar_products = random.sample(similar_products, 4)
 
     return render(request, 'product/product.html', {'product': product, 'similar_products': similar_products})
+
+
+def category(request, category_slug):
+    category = get_object_or_404(Category, slug=category_slug)
+    return render(request, 'product/category.html', {'category': category})
