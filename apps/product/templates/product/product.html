@@ -11,6 +11,7 @@
     {% endif %}
     <h1 class="title">{{ product.title }}, ${{ product.price }}</h1>
     <p mb-6><span class="tag is-dark">{{ product.vendor.name }}</span></p>
+    <br>
     <p>{{ product.description  }}</p>
     {% if similar_products %}
         <hr>
