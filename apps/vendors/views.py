@@ -43,7 +43,6 @@ def add_product(request):
             product = form.save(commit=False)
             product.vendor = request.user.vendor
             product.slug = slugify(product.title)
-            # product.category = request.POST.get('category')
             product.save()
 
             return redirect('vendor_admin')
