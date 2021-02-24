@@ -29,8 +29,10 @@ def become_vendor(request):
 
 @login_required
 def vendor_admin(request):
+    print(request.session)
     vendor = request.user.vendor
     products = vendor.products.all()
+    print(request.session.get('cart'))
     return render(request, 'vendors/vendor_admin.html', {'vendor': vendor, 'products': products })
 
 

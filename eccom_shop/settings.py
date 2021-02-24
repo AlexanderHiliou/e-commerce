@@ -37,6 +37,9 @@ SESSION_COOKIE_AGE = 86400
 
 CART_SESSION_ID = 'cart'
 
+STRIPE_PUB_KEY = 'pk_test_51IO7f0J6TwZ821f9YNnoue9fpEGZU0koh7JpkAeuCZMOGdopHq5TC7RMwiEbOCbNtkYauNShpYvcvydGE58e17cN002dorBBxm'
+
+STRIPE_SECRET_KEY = 'sk_test_51IO7f0J6TwZ821f91xdlMLHnZofl1GMl7FjQVvdGQIffKK8FrB71bpvVDhmeQuxRC7ajJ7EHlQy3cLhacx6BmZeY00DfeQazXl'
 
 # Application definition
 
@@ -50,6 +53,7 @@ INSTALLED_APPS = [
 
     'apps.cart',
     'apps.core',
+    'apps.order',
     'apps.vendors',
     'apps.product',
 ]
