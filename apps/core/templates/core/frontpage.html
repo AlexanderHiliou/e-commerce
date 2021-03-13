@@ -13,4 +13,19 @@ Welcome | Interiorshop
             {% include 'product/parts/list_item.html' %}
         {% endfor %}
     </div>
+    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <ul class="pagination-list">
+            {% for number in latest_products.paginator.page_range %}
+                {% if latest_products.number == number %}
+                    <li>
+                        <a class="pagination-link is-current has-background-danger" href="?page={{ number }}" aria-label="Goto page {{ number }}" aria-current="page">{{ number }}</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a class="pagination-link" href="?page={{ number }}" aria-label="Goto page {{ number }}">{{ number }}</a>
+                    </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </nav>
 {% endblock %}

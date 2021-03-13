@@ -29,11 +29,46 @@ def become_vendor(request):
 
 @login_required
 def vendor_admin(request):
-    print(request.session)
     vendor = request.user.vendor
     products = vendor.products.all()
-    print(request.session.get('cart'))
-    return render(request, 'vendors/vendor_admin.html', {'vendor': vendor, 'products': products })
+    orders = vendor.orders.all()
+
+    remove_product = request.GET.get('remove_product', '')
+    if remove_product:
+        product = Product.objects.get(id=remove_product)
+        product.delete()
+        return redirect('vendor_admin')
+
+    for order in orders:
+        order.vendor_amount = 0
+        order.vendor_paid_amount = 0
+        order.vendor_fully_paid = True
+
+        for item in order.items.all():
+            if item.vendor == request.user.vendor:
+                if item.vendor_paid:
+                    order.vendor_paid_amount += item.get_total_price()
+                else:
+                    order.vendor_amount += item.get_total_price()
+                    order.vendor_fully_paid = False
+
+
+    return render(request, 'vendors/vendor_admin.html', {'vendor': vendor, 'products': products, 'orders': orders })
+
+@login_required
+def edit_vendor(request):
+    vendor = request.user.vendor
+    if request.method == 'POST':
+        name = request.POST.get('name', '')
+        email = request.POST.get('email', '')
+        if name:
+            vendor.name = name
+            vendor.save()
+            vendor.created_by.email = email
+            vendor.created_by.save()
+
+            return redirect('vendor_admin')
+    return render(request, 'vendors/edit_vendor.html', {'vendor': vendor})
 
 
 @login_required

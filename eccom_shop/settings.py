@@ -10,7 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_@=49z#+1683%oa#s)5=w-_8m-isnrto_gjupor5*tw)(hs*ag'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -28,18 +32,20 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 LOGIN_URL = 'login'
-
 LOGIN_REDIRECT_URL = 'frontpage'
-
 LOGOUT_REDIRECT_URL = 'frontpage'
 
 SESSION_COOKIE_AGE = 86400
-
 CART_SESSION_ID = 'cart'
 
-STRIPE_PUB_KEY = 'pk_test_51IO7f0J6TwZ821f9YNnoue9fpEGZU0koh7JpkAeuCZMOGdopHq5TC7RMwiEbOCbNtkYauNShpYvcvydGE58e17cN002dorBBxm'
+STRIPE_PUB_KEY = os.getenv("STRIPE_PK")
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SC")
 
-STRIPE_SECRET_KEY = 'sk_test_51IO7f0J6TwZ821f91xdlMLHnZofl1GMl7FjQVvdGQIffKK8FrB71bpvVDhmeQuxRC7ajJ7EHlQy3cLhacx6BmZeY00DfeQazXl'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Application definition
 
@@ -57,6 +63,7 @@ INSTALLED_APPS = [
     'apps.vendors',
     'apps.product',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -103,6 +110,7 @@ DATABASES = {
         'USER': 'postgres',
     }
 }
+
 
 
 # Password validation

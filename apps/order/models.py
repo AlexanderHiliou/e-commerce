@@ -4,7 +4,7 @@ from apps.vendors.models import Vendor
 
 
 class Order(models.Model):
-    frist_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     phone = models.CharField(max_length=100)
@@ -31,3 +31,6 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    def get_total_price(self):
+        return self.price * self.quantity

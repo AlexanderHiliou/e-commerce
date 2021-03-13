@@ -6,5 +6,40 @@ Contact
 
 
 {% block content %}
-<h2>Contact</h2>
+<div class="conteiner">
+    <div class="columns">
+        <div class="column is-6 is-offset-3">
+            <h1 class='title'>Contact us</h1>
+
+            <form method="POST" action=".">
+                {% csrf_token %}
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-danger" type="text" name="first_name" maxlength="100" id="id_first_name" placeholder="First name" required="">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-danger" type="text" name="last_name" maxlength="100" id="id_last_name" placeholder="Last name" required="">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-danger" type="text" name="email" maxlength="100" id="id_email" placeholder="Email" required="">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <textarea class="textarea is-danger" name="message" rows="10" id="id_message" placeholder="Message"></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-black">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
