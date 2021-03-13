@@ -23,6 +23,15 @@ class Category(models.Model):
 
 class Product(models.Model):
 
+    def load_photo(self, file_name):
+        file_type = file_name.split(".")[-1]
+        file_name = ".".join(['{}/{}_{}', file_type])
+        return file_name.format(
+            self.category,
+            self.title,
+            self.date_added,
+        )
+
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     vendor = models.ForeignKey(Vendor, related_name='products', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
@@ -31,7 +40,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     date_added = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
-    thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
+    thumbnail = models.ImageField(upload_to=load_photo, blank=True, null=True)
 
     def __str__(self):
         return self.title
