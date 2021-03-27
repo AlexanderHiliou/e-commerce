@@ -33,7 +33,11 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Celery Configuration Options
+<<<<<<< HEAD
 CELERY_TIMEZONE = "Europe/Minsk"
+=======
+CELERY_TIMEZONE = "Australia/Tasmania"
+>>>>>>> 941b5415a18eefb1fbd706b87c5ef4261a7f2582
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
