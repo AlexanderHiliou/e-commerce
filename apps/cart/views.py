@@ -1,12 +1,14 @@
 import stripe
 
 from django.conf import settings
+
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
 from .forms import CheckoutForm
-from apps.order.utilities import checkout, notify_customer, notify_vendor
+from apps.order.utilities import checkout
 from .cart import Cart
+from .tasks import stripe_charge, notify_vendor_and_customer
 
 
 
@@ -17,16 +19,10 @@ def cart_detail(request):
         form = CheckoutForm(request.POST)
 
         if form.is_valid():
-            stripe.api_key = settings.STRIPE_SECRET_KEY
             stripe_token = form.cleaned_data['stripe_token']
 
             try:
-                charge = stripe.Charge.create(
-                    amount=int(cart.get_total_cost() * 100),
-                    currency='EUR',
-                    description='Charge for Iteriorshop',
-                    source=stripe_token
-                )
+                stripe_charge.delay(int(cart.get_total_cost() * 100), stripe_token)
 
                 first_name = form.cleaned_data['first_name']
                 last_name = form.cleaned_data['last_name']
@@ -40,8 +36,8 @@ def cart_detail(request):
 
                 cart.clear()
 
-                notify_customer(order)
-                notify_vendor(order)
+                notify_vendor_and_customer.delay(order.id)
+
             except Exception:
                 messages.error(request, 'There was something wrong with payment')
 
